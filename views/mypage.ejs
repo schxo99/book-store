@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<% include ./head.ejs %>
+<html>
+    <body>
+        <div style="font-size: 30px" style="padding: 30px">
+            <a href="../" type=""> 도서구매사이트 </a>
+        </div>
+        <a href="/basket" type="button" class="btn btn-primary">장바구니</a>
+        <a type="button" class="btn btn-primary">마이페이지</a>
+        <a href="/order/orderHistory" type="button" class="btn btn-primary"
+            >주문내역</a
+        >
+        <a href="/user/signin" type="button" class="btn btn-primary"
+            >로그아웃</a
+        >
+
+        <div class="input-group" style="padding: 20px">
+            <span class="input-group-text">아이디</span>
+
+            <span class="input-group-text"><%= user_info[0].user_id%></span>
+        </div>
+
+        <div class="input-group" style="padding: 10px 20px 30px 20px">
+            <span class="input-group-text">이름%></span>
+            <span class="input-group-text"><%= user_info[0].user_name%></span>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">카드번호</th>
+                    <th scope="col">유효기간</th>
+                    <th scope="col">카드종류</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i = 0; i < user_card_info.length; i++) {%>
+                <tr>
+                    <th scope="row"><%= i+1%></th>
+                    <td><%= user_card_info[i].card_num%></td>
+                    <td><%= user_card_info[i].card_date%></td>
+                    <td><%= user_card_info[i].card_type%></td>
+                    <td>
+                        <form
+                            action="/myPage/deleteCard/<%= user_card_info[i].card_num %>?_method=DELETE"
+                            method="post"
+                        >
+                            <button type="submit" class="btn btn-danger">
+                                삭제
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <% } %>
+                <form action="/myPage/addCard" method="post">
+                    <td>
+                        <input
+                            name=""
+                            type="hidden"
+                            class="form-control"
+                            placeholder="빈칸"
+                        />
+                    </td>
+                    <td>
+                        <input
+                            name="card_num"
+                            type="text"
+                            class="form-control"
+                            placeholder="카드번호"
+                        />
+                    </td>
+                    <td>
+                        <input
+                            name="card_date"
+                            type="text"
+                            class="form-control"
+                            placeholder="유효기간"
+                        />
+                    </td>
+                    <td>
+                        <input
+                            name="card_type"
+                            type="text"
+                            class="form-control"
+                            placeholder="카드종류"
+                        />
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary">
+                            등록
+                        </button>
+                    </td>
+                </form>
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">우편번호</th>
+                    <th scope="col">기본주소</th>
+                    <th scope="col">상세주소</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i = 0; i < user_address_info.length; i++) {%>
+                <tr>
+                    <th scope="row"><%= user_address_info[i].address_id%></th>
+                    <td><%= user_address_info[i].address_postnum%></td>
+                    <td><%= user_address_info[i].address_basicaddress%></td>
+                    <td><%= user_address_info[i].address_detailaddress%></td>
+                    <td>
+                        <form
+                            action="/myPage/deleteAddress/<%= user_address_info[i].address_id %>?_method=DELETE"
+                            method="post"
+                        >
+                            <button type="submit" class="btn btn-danger">
+                                삭제
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <% } %>
+                <form action="/myPage/addAddress" method="post">
+                    <td>
+                        <input
+                            name=""
+                            type="hidden"
+                            class="form-control"
+                            placeholder="빈칸"
+                        />
+                    </td>
+                    <td>
+                        <input
+                            name="postnum"
+                            type="text"
+                            class="form-control"
+                            placeholder="우편번호"
+                        />
+                    </td>
+                    <td>
+                        <input
+                            name="basicAddress"
+                            type="text"
+                            class="form-control"
+                            placeholder="기본주소"
+                        />
+                    </td>
+                    <td>
+                        <input
+                            name="detailAddress"
+                            type="text"
+                            class="form-control"
+                            placeholder="상세주소"
+                        />
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary">
+                            등록
+                        </button>
+                    </td>
+                </form>
+            </tbody>
+        </table>
+    </body>
+</html>

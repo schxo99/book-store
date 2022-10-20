@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<% include ./head.ejs %>
+<html>
+    <body>
+        <div style="font-size: 30px" style="padding: 30px">
+            <a href="../" type=""> 도서구매사이트 </a>
+        </div>
+        <a href="/basket" type="button" class="btn btn-primary">장바구니</a>
+        <a href="/mypage" type="button" class="btn btn-primary">마이페이지</a>
+        <a href="/order/orderHistory" type="button" class="btn btn-primary"
+            >주문내역</a
+        >
+        <a href="/user/signin" type="button" class="btn btn-primary"
+            >로그아웃</a
+        >
+
+        <div class="input-group" style="padding: 20px">
+            <span class="input-group-text">아이디</span>
+
+            <span class="input-group-text"><%= user_info[0].user_id%></span>
+        </div>
+
+        <div class="input-group" style="padding: 10px 20px 30px 20px">
+            <span class="input-group-text">장바구니 페이지</span>
+        </div>
+
+        <table class="table" style="margin-bottom: 48px">
+            <thead>
+                <tr>
+                    <th scope="col">장바구니 번호</th>
+                    <th scope="col">장바구니 생성일자</th>
+                    <th scope="col">합 계</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <%if(basket_info.length != 0) {%>
+                    <th scope="row"><%= basket_info[0].basket_id%></th>
+                    <td><%= basket_info[0].basket_createdate%></td>
+                    <td><%= sumPrice[0].sum%></td>
+                    <td></td>
+                    <td>
+                        <div style="display: flex">
+                            <a
+                                href="/order"
+                                type="button"
+                                class="btn btn-primary"
+                                >구매</a
+                            >
+                            <form action="/basket/deleteBasket" method="post">
+                                <button type="submit" class="btn btn-danger">
+                                    삭제
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                    <%} else {%>
+                    <td colspan="5">장바구니에 담은 도서가 없습니다.</td>
+                    <%}%>
+                </tr>
+            </tbody>
+        </table>
+        <div></div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">도서명</th>
+                    <th scope="col">수량</th>
+                    <th scope="col">단가</th>
+                    <th scope="col">금액</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var i = 0; i < basket_list_info.length; i++) { %>
+                <tr>
+                    <th scope="row"><%= bookName[i].book_name%></th>
+                    <td><%=basket_list_info[i].book_count%></td>
+                    <td><%= bookName[i].book_price%></td>
+                    <td><%=basket_list_info[i].book_price%></td>
+                    <td>
+                        <form
+                            action="/basket/deleteBook/<%= bookName[i].book_id %>?_method=DELETE"
+                            method="post"
+                        >
+                            <button type="submit" class="btn btn-danger">
+                                삭제
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </body>
+</html>

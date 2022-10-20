@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <% include ./head.ejs %>
+
+    <body>
+        <form action="signup" method="post">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">아이디</span>
+                <input
+                    name="uid"
+                    type="text"
+                    class="form-control"
+                    placeholder="아이디"
+                    aria-label="UserId"
+                    aria-describedby="basic-addon1"
+                />
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">비밀번호</span>
+                <input
+                    name="upw"
+                    type="password"
+                    class="form-control"
+                    placeholder="비밀번호"
+                    aria-label="UserPw"
+                    aria-describedby="basic-addon1"
+                />
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">이름</span>
+                <input
+                    name="uname"
+                    type="text"
+                    class="form-control"
+                    placeholder="이름"
+                    aria-label="UserPw"
+                    aria-describedby="basic-addon1"
+                />
+            </div>
+            <button type="submit" class="btn btn-primary">회원가입</button>
+        </form>
+    </body>
+</html>

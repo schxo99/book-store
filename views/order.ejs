@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<% include ./head.ejs %>
+<html>
+    <body>
+        <form action="" method="post">
+            <div style="font-size: 30px" style="padding: 30px">
+                <a href="../../" type=""> 도서구매사이트 </a>
+            </div>
+            <a href="/basket" type="button" class="btn btn-primary">장바구니</a>
+            <a href="/mypage" type="button" class="btn btn-primary"
+                >마이페이지</a
+            >
+            <a href="/order/orderHistory" type="button" class="btn btn-primary"
+                >주문내역</a
+            >
+            <a href="/user/signin" type="button" class="btn btn-primary"
+                >로그아웃</a
+            >
+
+            <div class="input-group" style="padding: 20px">
+                <span class="input-group-text">아이디</span>
+
+                <span class="input-group-text"><%=user_id%></span>
+            </div>
+
+            <div class="input-group" style="padding: 10px 20px 30px 20px">
+                <span class="input-group-text">주문 페이지</span>
+            </div>
+
+            <% if (basketStatus) { %>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">도서명</th>
+                        <th scope="col">수량</th>
+                        <th scope="col">단가</th>
+                        <th scope="col">금액</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i=0; i < book_info.length;i++) {%>
+                    <tr>
+                        <th scope="row"><%= book_info[i].book_name%></th>
+                        <td><%= basket_list[i].book_count%></td>
+                        <td><%= book_info[i].book_price%></td>
+                        <td><%= basket_list[i].book_price%></td>
+                        <td></td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+            <% } else {%>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">도서명</th>
+                        <th scope="col">단가</th>
+                        <th scope="col">수량</th>
+                        <th scope="col">금액</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row"><%= book_info[0].book_name%></th>
+                        <td><%= book_info[0].book_price%></td>
+                        <td><%= book_count%></td>
+                        <td><%= book_price%></td>
+                        <input
+                            name="book"
+                            style="display: none"
+                            value="<%= book_info[0].book_id %>"
+                        />
+                        <input
+                            name="bookcount"
+                            style="display: none"
+                            value="<%= book_count %>"
+                        />
+                    </tr>
+                </tbody>
+            </table>
+            <% } %>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">카드정보</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <select
+                                name="card"
+                                class="form-select"
+                                aria-label="Default select example"
+                            >
+                                <option selected value="false">
+                                    카드를 선택하시오.
+                                </option>
+                                <% for(var i=0; i < card_list.length; i++) {%>
+                                <option value="<%=card_list[i].card_id%>">
+                                    카드번호 : <%= card_list[i].card_num%>
+                                    유효기간 : <%=card_list[i].card_date%>
+                                    카드타입 : <%=card_list[i].card_type%>
+                                </option>
+                                <%}%>
+                            </select>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">배송정보</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <select
+                                class="form-select"
+                                aria-label="Default select example"
+                                name="address"
+                            >
+                                <option selected value="false">
+                                    주소를 선택하시오.
+                                </option>
+                                <% for(var i=0; i < address_list.length; i++)
+                                {%>
+                                <option value="<%=address_list[i].address_id%>">
+                                    우편번호 : <%=
+                                    address_list[i].address_postnum%> 기본주소 :
+                                    <%= address_list[i].address_basicaddress%>
+                                    상세주소 : <%=
+                                    address_list[i].address_detailaddress%>
+                                </option>
+                                <%}%>
+                            </select>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            <% if(basketStatus) { %>
+            <h1>총 금액 : <%= sum[0].sum%> 원</h1>
+            <% } else { %>
+            <h1>총 금액 : <%=book_price%> 원</h1>
+            <% } %> <% if (basketStatus) { %>
+
+            <div style="text-align: center">
+                <button
+                    class="btn btn-success"
+                    style="width: 250px; height: 100px; font-size: 40px"
+                    onclick="javascript: form.action= '/order/payBasket'"
+                >
+                    결제하기
+                </button>
+            </div>
+            <% } else {%>
+            <div style="text-align: center">
+                <button
+                    class="btn btn-success"
+                    style="width: 250px; height: 100px; font-size: 40px"
+                    onclick="javascript: form.action= '/order/payNow'"
+                >
+                    결제하기
+                </button>
+            </div>
+            <% } %>
+        </form>
+    </body>
+</html>

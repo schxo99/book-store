@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <% include ./head.ejs %>
+
+    <body>
+        <form action="signin" method="post">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                    >아 이 디 :
+                </span>
+                <input
+                    name="uid"
+                    type="text"
+                    class="form-control"
+                    placeholder="ID"
+                    aria-label="UserId"
+                    aria-describedby="basic-addon1"
+                />
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                    >비밀번호 :
+                </span>
+                <input
+                    name="upw"
+                    type="text"
+                    class="form-control"
+                    placeholder="PW"
+                    aria-label="UserPw"
+                    aria-describedby="basic-addon1"
+                />
+            </div>
+            <button type="submit" class="btn btn-primary">로그인</button>
+        </form>
+    </body>
+</html>

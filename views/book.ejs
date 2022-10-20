@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<% include ./head.ejs %>
+<html>
+    <body>
+        <div style="font-size: 30px" style="padding: 30px">
+            <a href="../../" type=""> 도서구매사이트 </a>
+        </div>
+        <a href="/basket" type="button" class="btn btn-primary">장바구니</a>
+        <a href="/mypage" type="button" class="btn btn-primary">마이페이지</a>
+        <a href="/order/orderHistory" type="button" class="btn btn-primary"
+            >주문내역</a
+        >
+        <a href="/user/signin" type="button" class="btn btn-primary"
+            >로그아웃</a
+        >
+        <% if(signinStatus) { %>
+        <div class="input-group" style="padding: 20px">
+            <span class="input-group-text">아이디</span>
+
+            <span class="input-group-text"><%= user_info[0].user_id%></span>
+        </div>
+
+        <div class="input-group" style="padding: 10px 20px 30px 20px">
+            <span class="input-group-text">이름</span>
+            <span class="input-group-text"><%= user_info[0].user_name%></span>
+        </div>
+        <% } %>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">도서명</th>
+                    <th scope="col">수량</th>
+                    <th scope="col">단가</th>
+                    <th scope="col">구매수량</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <form method="post">
+                        <th scope="row"><%= book_info[0].book_name%></th>
+                        <td><%= book_info[0].book_count%></td>
+                        <td><%= book_info[0].book_price%></td>
+                        <td>
+                            <input
+                                name="book_count"
+                                type="number"
+                                class="form-control"
+                                value="1"
+                            />
+                        </td>
+                        <td style="display: flex">
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                onclick="javascript: form.action='/order/directOrder/<%= book_info[0].book_id%>';"
+                            >
+                                바로 구매
+                            </button>
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                onclick="javascript: form.action='../../basket/addBook/<%= book_info[0].book_id%>';"
+                            >
+                                장바구니 추가
+                            </button>
+                        </td>
+                    </form>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
